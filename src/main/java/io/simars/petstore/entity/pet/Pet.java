@@ -27,7 +27,6 @@ public class Pet extends BaseEntity implements TagLinked<Long, Pet>, ImageLinked
         this.status = status;
     }
 
-    @NaturalId
     @Column(name = "name")
     @NotNull
     @NotBlank

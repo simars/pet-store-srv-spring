@@ -1,12 +1,11 @@
 package io.simars.petstore.model;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class IdName {
 
-    public IdName(@NotNull @Min(1) Long id, @NotNull @NotBlank String name) {
+    public IdName(@NotNull Long id, @NotNull @NotBlank String name) {
         this.id = id;
         this.name = name;
     }

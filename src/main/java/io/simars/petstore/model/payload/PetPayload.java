@@ -18,7 +18,7 @@ public class PetPayload {
 
     private Set<String> photoUrls;
 
-    private Set<String> tags;
+    private Set<IdName> tags;
 
     @NotNull
     private IdName category;
@@ -50,11 +50,11 @@ public class PetPayload {
         this.photoUrls = photoUrls;
     }
 
-    public Set<String> getTags() {
+    public Set<IdName> getTags() {
         return tags;
     }
 
-    public void setTags(Set<String> tags) {
+    public void setTags(Set<IdName> tags) {
         this.tags = tags;
     }
 

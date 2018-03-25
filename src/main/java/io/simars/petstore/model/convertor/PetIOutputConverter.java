@@ -10,7 +10,8 @@ import org.springframework.core.convert.converter.Converter;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class PetPayloadConvertor implements Converter<Pet, PetPayload> {
+
+public class PetIOutputConverter implements Converter<Pet, PetPayload> {
 
     @Override
     public PetPayload convert(Pet source) {
@@ -22,7 +23,7 @@ public class PetPayloadConvertor implements Converter<Pet, PetPayload> {
                 .ifPresent(payload::setCategory);
         payload.setStatus(source.getStatus());
         payload.setPhotoUrls(source.getImages().stream().map(Image::getUrl).collect(Collectors.toSet()));
-        payload.setTags(source.getTags().stream().map(Tag::getName).collect(Collectors.toSet()));
+        payload.setTags(source.getTags().stream().map(tag -> new IdName(tag.getId(),tag.getName())).collect(Collectors.toSet()));
         return payload;
     }
 }
