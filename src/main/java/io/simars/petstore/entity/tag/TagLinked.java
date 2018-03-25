@@ -1,10 +1,8 @@
-package io.simars.petstore.tag;
+package io.simars.petstore.entity.tag;
 
 import io.simars.petstore.entity.AbstractEntity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Set;
 

@@ -1,4 +1,4 @@
-package io.simars.petstore.tag;
+package io.simars.petstore.entity.tag;
 
 import io.simars.petstore.entity.BaseEntity;
 import org.hibernate.annotations.NaturalId;
@@ -9,8 +9,6 @@ import java.util.*;
 
 @Entity
 @Table(name = "tag")
-@DiscriminatorColumn(name = "type")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Tag extends BaseEntity {
 
     @NaturalId

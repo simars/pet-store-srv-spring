@@ -1,22 +1,23 @@
-package io.simars.petstore.image;
+package io.simars.petstore.entity.image;
 
 import io.simars.petstore.entity.BaseEntity;
 import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-//
-////@Entity
-//@Table(name = "image")
-//@DiscriminatorColumn(name = "type")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
+@Entity
+@Table(name = "image")
 public class Image extends BaseEntity {
 
     @NaturalId
     private String url;
-
+//
 //    @OneToMany(
 //            mappedBy = "image",
 //            cascade = CascadeType.ALL,
@@ -27,6 +28,8 @@ public class Image extends BaseEntity {
 
     public Image() {
     }
+
+
 
     public Image(String url) {
         this.url = url;

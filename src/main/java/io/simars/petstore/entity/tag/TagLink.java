@@ -1,25 +1,23 @@
-package io.simars.petstore.tag;
+package io.simars.petstore.entity.tag;
 
 
 import io.simars.petstore.entity.AbstractEntity;
-import io.simars.petstore.entity.BaseEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@DiscriminatorColumn(name = "type")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
+@MappedSuperclass
 public abstract class TagLink <ID extends Serializable, E extends AbstractEntity<ID> & TagLinked>
         extends AbstractEntity<TagLink.EntityTagId> {
 
-    @EmbeddedId
-    private EntityTagId<Long> id;
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Tag.class)
+    @MapsId("tagId")
+    private Tag tag;
 
-    @Override
-    public EntityTagId<Long> getId() {
-        return this.id;
+    public Tag getTag() {
+        return tag;
     }
 
     @Override

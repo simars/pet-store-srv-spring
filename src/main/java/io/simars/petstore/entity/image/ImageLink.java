@@ -1,4 +1,4 @@
-package io.simars.petstore.image;
+package io.simars.petstore.entity.image;
 
 import io.simars.petstore.entity.AbstractEntity;
 
@@ -6,38 +6,35 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-//@Entity
-@DiscriminatorColumn(name = "type")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class ImageLink <ID extends Serializable, E extends AbstractEntity<ID> & ImageLinked>
+@MappedSuperclass
+public abstract class ImageLink<ID extends Serializable, E extends AbstractEntity<ID> & ImageLinked>
         extends AbstractEntity<ImageLink.EntityImageId> {
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("imageId")
+    protected Image image;
+
+    @Id
     @EmbeddedId
-    private EntityImageId<Long> id;
+    public abstract EntityImageId<ID> getId();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("imageId")
+    public abstract E getEntity();
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @MapsId("imageId")
-//    private Image image;
-
-
-    @Override
-    public EntityImageId<Long> getId() {
-        return id;
+    public Image getImage() {
+        return image;
     }
 
-
-//
-//    public Image getImage() {
-//        return image;
-//    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ImageLink image = (ImageLink) o;
-        return Objects.equals(getId(), getId());
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final ImageLink image = (ImageLink) o;
+        return Objects.equals(getId(), image.getId());
     }
 
     @Override
@@ -49,10 +46,14 @@ public abstract class ImageLink <ID extends Serializable, E extends AbstractEnti
     public static class EntityImageId<EID extends Serializable> implements Serializable {
 
         @Column(name = "entity_id")
-        private final EID entityId;
+        private EID entityId;
 
         @Column(name = "image_id")
-        private final Long imageId;
+        private Long imageId;
+
+        public EntityImageId() {
+
+        }
 
         public EntityImageId(EID entityId, Long imageId) {
             this.entityId = entityId;
@@ -78,5 +79,11 @@ public abstract class ImageLink <ID extends Serializable, E extends AbstractEnti
             return Objects.equals(getEntityId(), that.getEntityId()) &&
                     Objects.equals(getImageId(), that.getImageId());
         }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(this.getImageId(), this.getEntityId());
+        }
+
     }
 }

@@ -1,13 +1,9 @@
-package io.simars.petstore.image;
+package io.simars.petstore.entity.image;
 
 
 import io.simars.petstore.entity.AbstractEntity;
-import io.simars.petstore.entity.BaseEntity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Set;
 

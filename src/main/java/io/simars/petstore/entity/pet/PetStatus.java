@@ -1,4 +1,4 @@
-package io.simars.petstore.pet;
+package io.simars.petstore.entity.pet;
 
 /**
  * Pet statuses enumerated
@@ -6,7 +6,7 @@ package io.simars.petstore.pet;
  */
 public enum PetStatus {
 
-    AVAILABLE((short)0),PENDING((short)1),STORED((short)2);
+    AVAILABLE((short)0),PENDING((short)1),SOLD((short)2);
 
     public final short code;
 
