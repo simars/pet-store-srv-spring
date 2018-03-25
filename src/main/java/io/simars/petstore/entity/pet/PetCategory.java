@@ -23,7 +23,6 @@ public class PetCategory extends BaseEntity {
     }
 
     public PetCategory(@NotNull @NotBlank String name) {
-        this.id = id;
         this.name = name;
     }
 

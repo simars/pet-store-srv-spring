@@ -5,12 +5,10 @@ import io.simars.petstore.entity.image.Image;
 import io.simars.petstore.entity.image.ImageLinked;
 import io.simars.petstore.entity.tag.Tag;
 import io.simars.petstore.entity.tag.TagLinked;
-import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

@@ -21,13 +21,13 @@ import static java.util.stream.Stream.*;
 public class H2Bootstrap implements CommandLineRunner {
 
     @Autowired
-    PetRepository petRepository;
+    private PetRepository petRepository;
 
     @Autowired
     PetCategoryRepository petCategoryRepository;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         final PetCategory SMALL  = new PetCategory(1L,"SMALL");
         final PetCategory MEDIUM = new PetCategory(2L,"MEDIUM");

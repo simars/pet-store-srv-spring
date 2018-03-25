@@ -16,21 +16,25 @@ import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Stream;
 
+/**
+ * Service that transfer states from Pet Payload to Pet entity
+ * @author simars
+ */
 @Service
 public class PetInputConverter implements Converter<PetPayload, Pet> {
 
-    final PetRepository petRepository;
+    private final PetRepository petRepository;
 
-    final PetCategoryRepository categoryRepository;
+    private final PetCategoryRepository categoryRepository;
 
-    final TagRepository tagRepository;
+    private final TagRepository tagRepository;
 
-    final ImageRepository imageRepository;
+    private final ImageRepository imageRepository;
 
-    @Autowired
-    public PetInputConverter(PetRepository petRepository, PetCategoryRepository categoryRepository, TagRepository tagRepository, ImageRepository imageRepository) {
+     @Autowired
+    public PetInputConverter(final PetRepository petRepository, final PetCategoryRepository categoryRepository,
+                             final TagRepository tagRepository, final ImageRepository imageRepository) {
         this.petRepository = petRepository;
         this.categoryRepository = categoryRepository;
         this.tagRepository = tagRepository;

@@ -1,6 +1,5 @@
 package io.simars.petstore.rest;
 
-import io.simars.petstore.entity.pet.Pet;
 import io.simars.petstore.model.convertor.PetInputConverter;
 import io.simars.petstore.model.payload.PetPayload;
 import io.simars.petstore.repository.PageablePetRepository;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 

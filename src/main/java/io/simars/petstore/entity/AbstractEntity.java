@@ -12,12 +12,12 @@ public abstract class AbstractEntity<PK extends Serializable> implements Seriali
 
     private static final long serialVersionUID = 1L;
 
-    public AbstractEntity() {
+    AbstractEntity() {
 
     }
 
     @Id
-    public abstract PK getId();
+    protected abstract PK getId();
 
     @Override
     public abstract boolean equals(Object otherEntity);
