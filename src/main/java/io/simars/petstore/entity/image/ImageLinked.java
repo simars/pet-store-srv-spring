@@ -4,13 +4,13 @@ package io.simars.petstore.entity.image;
 import io.simars.petstore.entity.AbstractEntity;
 
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
 @MappedSuperclass
-public interface ImageLinked<ID extends Serializable, E extends AbstractEntity<ID> & ImageLinked, L extends ImageLink<ID, E>> {
+public interface ImageLinked<ID extends Serializable, E extends AbstractEntity<ID> & ImageLinked> {
 
-    Set<L> getImageLinks();
+    @NotNull Set<Image> getImages();
 
-    void setImageLinks(Set<L> imageLinks);
 }

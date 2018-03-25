@@ -1,7 +1,9 @@
 package io.simars.petstore.entity.pet;
 
 import io.simars.petstore.entity.BaseEntity;
+import io.simars.petstore.entity.image.Image;
 import io.simars.petstore.entity.image.ImageLinked;
+import io.simars.petstore.entity.tag.Tag;
 import io.simars.petstore.entity.tag.TagLinked;
 import org.hibernate.annotations.NaturalId;
 
@@ -9,11 +11,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="pet")
-public class Pet extends BaseEntity implements TagLinked<Long, Pet, PetTagLink>, ImageLinked<Long, Pet, PetImageLink> {
+@Table(name = "pet")
+public class Pet extends BaseEntity implements TagLinked<Long, Pet>, ImageLinked<Long, Pet> {
 
     public Pet() {
     }
@@ -22,13 +25,6 @@ public class Pet extends BaseEntity implements TagLinked<Long, Pet, PetTagLink>,
         this.name = name;
         this.category = category;
         this.status = status;
-    }
-
-    public Pet(@NotNull @NotBlank String name, @NotNull PetCategory category, @NotNull PetStatus status,
-               Set<PetTagLink> tagLinks, Set<PetImageLink> imageLinks) {
-        this(name,category,status);
-        this.tagLinks = tagLinks;
-        this.imageLinks = imageLinks;
     }
 
     @NaturalId
@@ -48,22 +44,26 @@ public class Pet extends BaseEntity implements TagLinked<Long, Pet, PetTagLink>,
     private PetStatus status;
 
 
-    @OneToMany(
-            mappedBy = "tag",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "pet_tag",
+            joinColumns = @JoinColumn(name = "pet_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private Set<PetTagLink> tagLinks = new HashSet<>();
+    private Set<Tag> tags = new LinkedHashSet<>();
 
 
-
-    @OneToMany(
-            mappedBy = "image",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "image_tag",
+            joinColumns = @JoinColumn(name = "pet_id"),
+            inverseJoinColumns = @JoinColumn(name = "image_id")
     )
-    @Transient
-    private Set<PetImageLink> imageLinks = new HashSet<>();
+    private Set<Image> images = new LinkedHashSet<>();
 
 
     public String getName() {
@@ -74,26 +74,6 @@ public class Pet extends BaseEntity implements TagLinked<Long, Pet, PetTagLink>,
         this.name = name;
     }
 
-
-    @Override
-    public Set<PetImageLink> getImageLinks() {
-        return this.imageLinks;
-    }
-
-    @Override
-    public void setImageLinks(Set<PetImageLink> imageLinks) {
-        this.imageLinks = imageLinks;
-    }
-
-    @Override
-    public Set<PetTagLink> getTagLinks() {
-        return this.tagLinks;
-    }
-
-    @Override
-    public void setTagLinks(Set<PetTagLink> tagLinks) {
-        this.tagLinks = tagLinks;
-    }
 
     public PetCategory getCategory() {
         return category;
@@ -109,6 +89,25 @@ public class Pet extends BaseEntity implements TagLinked<Long, Pet, PetTagLink>,
 
     public void setStatus(PetStatus status) {
         this.status = status;
+    }
+
+    @Override
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    @Override
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
 

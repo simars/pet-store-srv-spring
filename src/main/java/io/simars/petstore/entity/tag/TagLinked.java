@@ -3,15 +3,13 @@ package io.simars.petstore.entity.tag;
 import io.simars.petstore.entity.AbstractEntity;
 
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
 @MappedSuperclass
-public interface TagLinked<ID extends Serializable, E extends AbstractEntity<ID> & TagLinked, L extends TagLink<ID, E>> {
+public interface TagLinked<ID extends Serializable, E extends AbstractEntity<ID> & TagLinked> {
 
-
-    Set<L> getTagLinks();
-
-    void setTagLinks(Set<L> tagLinks);
+    @NotNull Set<Tag> getTags();
 
 }

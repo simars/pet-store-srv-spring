@@ -3,12 +3,8 @@ package io.simars.petstore.entity.image;
 import io.simars.petstore.entity.BaseEntity;
 import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,19 +13,9 @@ public class Image extends BaseEntity {
 
     @NaturalId
     private String url;
-//
-//    @OneToMany(
-//            mappedBy = "image",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
-//    )
-//    private List<ImageLink> imageLinks = new LinkedList<>();
-
 
     public Image() {
     }
-
-
 
     public Image(String url) {
         this.url = url;
@@ -42,7 +28,6 @@ public class Image extends BaseEntity {
     public void setUrl(String url) {
         this.url = url;
     }
-
 
     @Override
     public boolean equals(Object o) {

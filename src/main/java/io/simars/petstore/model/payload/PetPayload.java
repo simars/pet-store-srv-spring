@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class PetPayload {
 
-    private Long petId;
+    private Long id;
 
     @NotNull
     @NotBlank
@@ -26,12 +26,12 @@ public class PetPayload {
     @NotNull
     private PetStatus status;
 
-    public Long getPetId() {
-        return petId;
+    public Long getId() {
+        return id;
     }
 
-    public void setPetId(Long petId) {
-        this.petId = petId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -77,7 +77,7 @@ public class PetPayload {
     @Override
     public String toString() {
         return "PetPayload{" +
-                "petId=" + petId +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
     }
@@ -87,12 +87,12 @@ public class PetPayload {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PetPayload that = (PetPayload) o;
-        return Objects.equals(petId, that.petId);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(petId);
+        return Objects.hash(id);
     }
 }
