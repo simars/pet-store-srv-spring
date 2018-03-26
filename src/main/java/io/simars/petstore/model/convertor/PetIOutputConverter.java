@@ -21,6 +21,7 @@ public class PetIOutputConverter implements Converter<Pet, PetPayload> {
 
         final PetPayload payload = new PetPayload();
         payload.setId(source.getId());
+        payload.setName(source.getName());
         Optional.ofNullable(source.getCategory())
                 .map(cat -> new IdName(cat.getId(), cat.getName()))
                 .ifPresent(payload::setCategory);

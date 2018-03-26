@@ -29,20 +29,25 @@ public class H2Bootstrap implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        final PetCategory SMALL  = new PetCategory(1L,"SMALL");
-        final PetCategory MEDIUM = new PetCategory(2L,"MEDIUM");
-        final PetCategory LARGE = new PetCategory(3L,"LARGE");
+        final PetCategory DOG  = new PetCategory(1L,"DOG");
+        final PetCategory CAT = new PetCategory(2L,"CAT");
+        final PetCategory RABBIT = new PetCategory(3L,"RABBIT");
 
-        petCategoryRepository.saveAll(Arrays.asList(SMALL,MEDIUM,LARGE));
+        petCategoryRepository.saveAll(Arrays.asList(DOG,CAT,RABBIT));
 
 
-        Set<Tag> tags = of("Hello", "Nice").map(Tag::new).collect(Collectors.toSet());
-        Set<Image> images = of("http://1", "http://2").map(Image::new).collect(Collectors.toSet());
+        final Set<Tag> tags = of("Hello", "Nice").map(Tag::new).collect(Collectors.toSet());
+        final Set<Image> images = of(
+                "https://proxy.topixcdn.com/ipicimg/QTC9VVKRMHFOEJPM-cp0x191x2560x1471-fill810x415x",
+                "https://www.planwallpaper.com/static/images/734899052_13956580111.jpg"
+        ).map(Image::new).collect(Collectors.toSet());
+
+
 
         final Pet[] pets = {
-                new Pet("puchi",SMALL, PetStatus.AVAILABLE),
-                new Pet("muchi", LARGE, PetStatus.SOLD),
-                new Pet("bozo", MEDIUM,PetStatus.PENDING)
+                new Pet("Bozo",DOG, PetStatus.AVAILABLE),
+                new Pet("King Bunny", RABBIT, PetStatus.SOLD),
+                new Pet("Billy", CAT,PetStatus.PENDING)
         };
 
         pets[0].getImages().addAll(images);

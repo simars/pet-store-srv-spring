@@ -56,7 +56,8 @@ public class PetInputConverter implements Converter<PetPayload, Pet> {
         }
         IdName catIdName = payload.getCategory();
 
-        Optional<PetCategory> category = Optional.ofNullable(catIdName).flatMap(cat -> this.categoryRepository.findById(cat.getId()));
+        Optional<PetCategory> category;
+        category = this.categoryRepository.findByName(catIdName.getName());
         if (!category.isPresent()) {
             throw new NoSuchElementException("Category not found " + catIdName);
         }
@@ -71,7 +72,8 @@ public class PetInputConverter implements Converter<PetPayload, Pet> {
 
         Optional.ofNullable(payload.getTags()).ifPresent(tags -> tags.forEach(
                 tag -> {
-                    Tag tag1 = Optional.ofNullable(tag.getId()).flatMap(tagRepository::findById).orElse(tagRepository.findByName(tag.getName()).orElse(new Tag(tag.getName())));
+                    Tag tag1 = Optional.ofNullable(tag.getId()).flatMap(tagRepository::findById)
+                            .orElse(tagRepository.findByName(tag.getName()).orElse(new Tag(tag.getName())));
                     petToUpdate.getTags().add(tag1);
                 }
 
