@@ -58,9 +58,11 @@ public class PetsController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Void> crete(@NotNull @Valid @RequestBody PetPayload payload) {
-        petRepository.save(petInputConverter.convert(payload));
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<PetPayload> crete(@NotNull @Valid @RequestBody PetPayload payload) {
+        final Pet pet = petRepository.save(petInputConverter.convert(payload));
+        return new ResponseEntity<>(
+                conversionService.convert(pet, PetPayload.class),
+                HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -69,7 +71,7 @@ public class PetsController {
             @PathVariable("id") @NotNull Long id,
             @NotNull @Valid @RequestBody PetPayload payload) {
         if(petRepository.existsById(id)) {
-            Pet pet = petRepository.save(petInputConverter.convert(payload));
+            final Pet pet = petRepository.save(petInputConverter.convert(payload));
             return new ResponseEntity<>(
                     conversionService.convert(pet, PetPayload.class),
                     HttpStatus.ACCEPTED);
