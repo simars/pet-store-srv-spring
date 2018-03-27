@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Controller
-@RequestMapping("/pets")
+@RequestMapping("/pet")
 @CrossOrigin
 public class PetsController {
 
