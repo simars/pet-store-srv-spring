@@ -1,9 +1,11 @@
 package io.simars.petstore.rest;
 
 import io.simars.petstore.entity.pet.Pet;
+import io.simars.petstore.model.IdName;
 import io.simars.petstore.model.convertor.PetInputConverter;
 import io.simars.petstore.model.payload.PetPayload;
 import io.simars.petstore.repository.PageablePetRepository;
+import io.simars.petstore.repository.PetCategoryRepository;
 import io.simars.petstore.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
@@ -35,6 +37,9 @@ public class PetsController {
 
     @Autowired
     PetInputConverter petInputConverter;
+
+    @Autowired
+    PetCategoryRepository categoryRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Iterable<PetPayload>> getPets() {
@@ -81,6 +86,12 @@ public class PetsController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+    }
+
+    @RequestMapping(value = "/meta/categories", method = RequestMethod.GET)
+    public ResponseEntity<Iterable<IdName>> getCategories() {
+        return new ResponseEntity<>(StreamSupport.stream(categoryRepository.findAll().spliterator(), false)
+                .map(cat -> new IdName(cat.getId(), cat.getName())).collect(Collectors.toSet()), HttpStatus.OK);
     }
 
 }
